@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-0">
+    <nav style={{height: '100px'}} className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-0">
       <div className="container">
         <Link className="navbar-brand fw-bold" to="/">
           <img src={logo} alt="Logo" height="100" width="130" />
