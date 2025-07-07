@@ -22,10 +22,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-0">
       <div className="container">
         <Link className="navbar-brand fw-bold" to="/">
-          <img src={logo} alt="Logo" height="80" width="150" />
+          <img src={logo} alt="Logo" height="100" width="130" />
         </Link>
 
         <button
@@ -41,10 +41,11 @@ const Navbar = () => {
           <ul className="navbar-nav me-3">
             {[
               { path: '/', label: 'Home' },
-              { path: '/hotel', label: 'Hotel' },
-              { path: '/visa', label: 'Visa' },
-              { path: '/holidays', label: 'Holidays' },
-              { path: '/Umrah', label: 'UMRAH' },
+              { path: '/properties', label: 'Properties' },
+              { path: '/about', label: 'About' },
+              { path: '/property-management', label: 'Property Management' },
+              { path: '/our-services', label: 'Our Services' },
+       
             ].map((link, i) => (
               <li className="nav-item" key={i}>
                 <NavLink
@@ -56,22 +57,13 @@ const Navbar = () => {
                   {link.label}
                 </NavLink>
               </li>
+              
             ))}
           </ul>
 
-          <select className="form-select w-auto me-2">
-            <option>AED</option>
-          </select>
-
-          {isLoggedIn ? (
-            <button onClick={handleLogout} className="btn btn-outline-danger">
-              Logout
+         <button className="btn btn-outline-warning">
+              Contact Us
             </button>
-          ) : (
-            <Link to="/login" className="btn btn-outline-warning">
-              Login/Sign up
-            </Link>
-          )}
         </div>
       </div>
     </nav>

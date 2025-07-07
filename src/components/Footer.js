@@ -1,59 +1,77 @@
-// components/Footer.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import './Footer.css'; // Optional: for additional styling
 
-const Footer = () => (
-  <footer className="bg-white text-dark pt-5">
-    <div className="container-fluid" style={{ marginTop: '50px' }}>
-      <div className="row px-5">
-        <div className="col-md-5">
-          <img src="img/logo.png" height="160" className="mb-2 pl-5" alt="Logo" /><br />
-          <p className='text-center' style={{ width: '290px' }}>
-           Alkiswa.com is a trusted online travel platform offering Umrah packages, seamless flight bookings, hotel reservations, and visa services — all in one place.
-          </p>
-        </div>
+const Footer = () => {
+  return (
+    <footer className="bg-light pt-5">
+    
+      {/* Footer Main */}
+      <Container className="mt-5">
+        <Row className="mb-4">
+          <Col md={3} className="mb-4 mb-md-0">
+            <img src="img/logo.png" alt="Logo" height="80" />
+            <p className="mt-2 text-muted">Your premier destination for luxury stays in Dubai.</p>
+            <div className="d-flex gap-3 icons">
+              <a href="#"><FaTwitter /></a>
+              <a href="#"><FaFacebookF /></a>
+              <a href="#"><FaInstagram /></a>
+              <a href="#"><FaLinkedinIn /></a>
+            </div>
+          </Col>
 
-        <div className='col-md-1 d-none d-sm-block'>
-          <div style={{ height: '300px', width: '3px', background: '#ffc107' }}></div>
-        </div>
+          <Col md={3}>
+            <h6><strong>Company</strong></h6>
+            <ul className="list-unstyled">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Press</a></li>
+            </ul>
+          </Col>
 
-        <div className="col-md-5 d-flex justify-content-around">
-          <ul className="list-unstyled">
-            <li style={{ marginBottom: '10px', fontSize: '20px' }} className='text-primary'>
-              <strong>Quick Link</strong>
-            </li>
-            <li><Link to="/" style={linkStyle}>Home</Link></li>
-            <li><Link to="/about" style={linkStyle}>About Us</Link></li>
-            <li><Link to="/services" style={linkStyle}>Services</Link></li>
-            <li><Link to="/holidays" style={linkStyle}>Holidays</Link></li>
-          </ul>
+          <Col md={3}>
+            <h6><strong>Support</strong></h6>
+            <ul className="list-unstyled">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety</a></li>
+              <li><a href="#">Cancellation</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Submit Review</a></li>
+            </ul>
+          </Col>
 
-          <ul className="list-unstyled">
-            <li><br /></li>
-            <li><Link to="/contact" style={linkStyle}>Contact Us</Link></li>
-            <li><Link to="/privacy-policy" style={linkStyle}>Privacy Policy</Link></li>
-            <li><Link to="/terms-and-conditions" style={linkStyle}>Terms & Conditions</Link></li>
-            <li><Link to="/faq" style={linkStyle}>FAQ</Link></li>
-          </ul>
-        </div>
+          <Col md={3}>
+            <h6><strong>Legal</strong></h6>
+            <ul className="list-unstyled">
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+              <li><a href="#">Guidelines</a></li>
+            </ul>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col className="text-center text-muted py-3 border-top">
+            © 2025 Primevista Holidayhomes. All rights reserved.
+          </Col>
+        </Row>
+      </Container>
+
+      {/* WhatsApp Chat Button */}
+      <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1030 }}>
+        <Button
+          variant="warning"
+          className="d-flex align-items-center gap-2"
+          style={{ borderRadius: '30px', background: 'orange', color: 'white' }}
+        >
+          <FaWhatsapp />
+          Chat on WhatsApp
+        </Button>
       </div>
-
-      <hr />
-
-      <div className="text-center py-3 bg-warning">
-        <strong>Contact Us</strong><br />
-        📍 Rolla Building - Shop No 8 Ground Floor Al Arouba St Sharjah UAE<br />
-        📞 +971 6 7044002 | ✉️ <a href="mailto:support@alkiswa.com">support@alkiswa.com</a>
-      </div>
-    </div>
-  </footer>
-);
-
-const linkStyle = {
-  fontSize: '20px',
-  textDecoration: 'none',
-  color: 'black',
-  marginTop: '10px'
+    </footer>
+  );
 };
 
 export default Footer;

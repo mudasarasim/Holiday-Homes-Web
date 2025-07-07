@@ -51,3 +51,32 @@ body {
   height: 40px;
   font-size: 14px;
 }
+
+
+.text-warning {
+  color: orange !important;
+}
+
+.bg-warning {
+  background-color: orange !important;
+}
+
+.border-warning {
+  border-color: orange !important;
+}
+
+.btn-warning {
+  background-color: orange !important;
+  border-color: orange !important;
+  color: white;
+}
+
+.btn-outline-warning {
+  color: orange !important;
+  border-color: orange !important;
+}
+
+.btn-outline-warning:hover {
+  background-color: orange !important;
+  color: white !important;
+}
