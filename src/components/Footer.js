@@ -5,14 +5,14 @@ import './Footer.css'; // Optional: for additional styling
 
 const Footer = () => {
   return (
-    <footer className="bg-light pt-5">
+    <footer className="bg-dark text-light pt-5" style={{borderRadius: '25px 25px 0px 0px'}}>
     
       {/* Footer Main */}
       <Container className="mt-5">
         <Row className="mb-4">
           <Col md={3} className="mb-4 mb-md-0">
             <img src="img/logo.png" alt="Logo" height="80" />
-            <p className="mt-2 text-muted">Your premier destination for luxury stays in Dubai.</p>
+            <p className="mt-2">Your premier destination for luxury stays in Dubai.</p>
             <div className="d-flex gap-3 icons">
               <a href="#"><FaTwitter /></a>
               <a href="#"><FaFacebookF /></a>
@@ -53,7 +53,7 @@ const Footer = () => {
         </Row>
 
         <Row>
-          <Col className="text-center text-muted py-3 border-top">
+          <Col className="text-center py-3 border-top">
             © 2025 Primevista Holidayhomes. All rights reserved.
           </Col>
         </Row>
