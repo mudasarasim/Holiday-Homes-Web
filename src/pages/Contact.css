@@ -15,6 +15,13 @@
   font-weight: bold;
 }
 
+ul li span {
+  font-weight: 500;
+}
+
+ul li svg {
+  flex-shrink: 0;
+}
 .contact-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;

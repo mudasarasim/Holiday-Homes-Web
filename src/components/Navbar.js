@@ -1,15 +1,16 @@
-// components/Navbar.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../assets/logo.png';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
+import Collapse from 'bootstrap/js/dist/collapse';
+import PropertyModal from './PropertyModal'; // ✅ import modal component
+import './Navbar.css';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  
+  const collapseRef = useRef(null);
 
-  // Check login status on mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
@@ -21,52 +22,118 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const handleNavLinkClick = () => {
+    if (collapseRef.current && window.innerWidth < 992) {
+      const bsCollapse = Collapse.getInstance(collapseRef.current) || new Collapse(collapseRef.current, { toggle: false });
+      bsCollapse.hide();
+    }
+  };
+
   return (
-    <nav style={{height: '100px'}} className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-0">
-      <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">
-          <img src={logo} alt="Logo" height="100" width="130" />
-        </Link>
+    <>
+      <nav style={{ height: '100px' }} className="navbar navbar-expand-lg navbar-light shadow-sm py-0">
+        <div className="container">
+          <Link className="navbar-brand fw-bold" to="/">
+            <img src={logo} alt="Logo" height="100" width="130" />
+          </Link>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav me-3">
-            {[
-              { path: '/', label: 'Home' },
-              { path: '/properties', label: 'Properties' },
-              { path: '/about', label: 'About' },
-              { path: '/property-management', label: 'Property Management' },
-              { path: '/our-services', label: 'Our Services' },
-       
-            ].map((link, i) => (
-              <li className="nav-item" key={i}>
+          <div
+            style={{ background: 'white', padding: '10px' }}
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+            ref={collapseRef}
+          >
+            <ul className="navbar-nav me-3">
+              <li className="nav-item">
                 <NavLink
-                  to={link.path}
+                  to="/"
                   className={({ isActive }) =>
                     `nav-link fw-bold ${isActive ? 'text-warning' : 'text-dark'}`
                   }
+                  onClick={handleNavLinkClick}
                 >
-                  {link.label}
+                  Home
                 </NavLink>
               </li>
-              
-            ))}
-          </ul>
 
-         <Link to={'/contact'} className="btn btn-outline-warning">
+              <li className="nav-item">
+                <NavLink
+                  to="/our-services"
+                  className={({ isActive }) =>
+                    `nav-link fw-bold ${isActive ? 'text-warning' : 'text-dark'}`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  Our Services
+                </NavLink>
+              </li>
+
+              {/* ✅ Modal Triggers */}
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link fw-bold text-dark"
+                  data-bs-toggle="modal"
+                  data-bs-target="#propertyModal"
+                  onClick={handleNavLinkClick}
+                >
+                  List Your Property
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-link fw-bold text-dark"
+                  data-bs-toggle="modal"
+                  data-bs-target="#propertyModal"
+                  onClick={handleNavLinkClick}
+                >
+                  Long Stays
+                </button>
+              </li>
+
+              <li className="nav-item">
+                <NavLink
+                  to="/property-management"
+                  className={({ isActive }) =>
+                    `nav-link fw-bold ${isActive ? 'text-warning' : 'text-dark'}`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  Property Management
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink
+                  to="/blog"
+                  className={({ isActive }) =>
+                    `nav-link fw-bold ${isActive ? 'text-warning' : 'text-dark'}`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  Blog
+                </NavLink>
+              </li>
+            </ul>
+
+            <Link to="/contact" className="btn btn-outline-warning" onClick={handleNavLinkClick}>
               Contact Us
             </Link>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* ✅ Include the modal */}
+      <PropertyModal />
+    </>
   );
 };
 

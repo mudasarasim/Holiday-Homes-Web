@@ -6,16 +6,22 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Contact from "./pages/Contact";
 import Properties from "./pages/Properties";
+import PropertyModal from "./components/PropertyModal";
+import ManageProperties from "./pages/ManageProperties";
+import Services from "./pages/OurServices";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
+      <PropertyModal />
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
            <Route path="/contact" element={<Contact />} />
            <Route path="/properties" element={<Properties />} />
+           <Route path="/our-services" element={<Services />} />
+           <Route path="/property-management" element={<ManageProperties />} />
            
         </Routes>
       <Footer/>
