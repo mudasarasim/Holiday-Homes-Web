@@ -1,4 +1,19 @@
 /* Contact.css */
+.back{
+  height: 340px !important;
+  background-position: center !important;
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px 0px 50px 50px;
+}
+
+.back h2{
+  color: white;
+  font-size: 44px;
+  font-weight: bold;
+}
 
 .contact-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -7,16 +22,6 @@
   background-color: #f9f9f9;
 }
 
-/* Header Section */
-.contact-header {
-  background: url('../assets/Images/cu.jpg') center center/cover no-repeat;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-}
 
 .contact-header .overlay {
   background-color: rgba(0, 0, 0, 0.6);

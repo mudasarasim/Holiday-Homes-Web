@@ -5,7 +5,7 @@ import './Footer.css'; // Optional: for additional styling
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light pt-5" style={{borderRadius: '25px 25px 0px 0px'}}>
+    <footer className="bg-dark text-light pt-5" style={{borderRadius: '40px 40px 0px 0px'}}>
     
       {/* Footer Main */}
       <Container className="mt-5">
@@ -54,7 +54,7 @@ const Footer = () => {
 
         <Row>
           <Col className="text-center py-3 border-top">
-            © 2025 Primevista Holidayhomes. All rights reserved.
+            © 2025 Ever Season Holidayhomes. All rights reserved.
           </Col>
         </Row>
       </Container>

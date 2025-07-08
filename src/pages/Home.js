@@ -96,6 +96,7 @@ const Home = () => {
         <div className="row g-4">
           {properties.map((property) => (
             <div className="col-md-4" key={property.id}>
+              <Link to={'/property-detail'} style={{textDecoration: 'none'}}>
               <div className="card border-0 shadow rounded-4 overflow-hidden property-card">
                 <div className="position-relative">
                   <video className="w-100" autoPlay muted loop style={{ height: '270px' }}>
@@ -112,7 +113,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-             
+             </Link>
             </div>
           ))}
           

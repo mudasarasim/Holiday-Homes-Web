@@ -61,9 +61,9 @@ const Navbar = () => {
             ))}
           </ul>
 
-         <button className="btn btn-outline-warning">
+         <Link to={'/contact'} className="btn btn-outline-warning">
               Contact Us
-            </button>
+            </Link>
         </div>
       </div>
     </nav>
