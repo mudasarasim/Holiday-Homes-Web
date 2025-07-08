@@ -9,6 +9,7 @@ import Properties from "./pages/Properties";
 import PropertyModal from "./components/PropertyModal";
 import ManageProperties from "./pages/ManageProperties";
 import Services from "./pages/OurServices";
+import ProprtyDetail from "./pages/PropertyDetail";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
            <Route path="/properties" element={<Properties />} />
            <Route path="/our-services" element={<Services />} />
            <Route path="/property-management" element={<ManageProperties />} />
+           <Route path="/property-detail" element={<ProprtyDetail />} />
            
         </Routes>
       <Footer/>
