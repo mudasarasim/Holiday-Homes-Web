@@ -61,15 +61,27 @@ const Footer = () => {
 
       {/* WhatsApp Chat Button */}
       <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1030 }}>
-        <Button
-          variant="warning"
-          className="d-flex align-items-center gap-2"
-          style={{ borderRadius: '30px', background: 'orange', color: 'white' }}
-        >
-          <FaWhatsapp />
-          Chat on WhatsApp
-        </Button>
-      </div>
+  <a
+    href="https://wa.me/97142502914"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Button
+      variant="warning"
+      className="d-flex align-items-center gap-2"
+      style={{
+        borderRadius: '30px',
+        background: 'orange',
+        color: 'white',
+        border: 'none',
+      }}
+    >
+      <FaWhatsapp />
+      Chat on WhatsApp
+    </Button>
+  </a>
+</div>
     </footer>
   );
 };
