@@ -62,14 +62,14 @@ const ContactUs = () => {
               <div className="contact-box p-4 shadow-sm">
                 <div className="icon mb-2"><i className="fa fa-envelope fa-2x"></i></div>
                 <h5>Mail</h5>
-                <p><i className="fa fa-envelope"></i> info@mivaan.com</p>
+                <p><i className="fa fa-envelope"></i>admin@everseasonholidayhomes.com</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-box p-4 shadow-sm">
                 <div className="icon mb-2"><i className="fa fa-phone fa-2x"></i></div>
                 <h5>Contact</h5>
-                <p><i className="fa fa-mobile"></i> +971 52 635 3298</p>
+                <p><i className="fa fa-mobile"></i>+971 4 250 2914</p>
               </div>
             </div>
             <div className="col-md-4">
@@ -82,7 +82,7 @@ const ContactUs = () => {
           </div>
 
           <div className="row align-items-stretch">
-            <div className="col-lg-6 mb-4">
+            <div className="col mb-4">
               <form onSubmit={handleSubmit} className="p-4 shadow-lg rounded-4 h-100">
                 <div className="form-group mb-3">
                   <input
@@ -131,7 +131,7 @@ const ContactUs = () => {
               </form>
             </div>
 
-            <div className="col-lg-6 mb-4">
+            {/* <div className="col-lg-6 mb-4">
               <div className="h-100 rounded-4 overflow-hidden shadow-lg">
                 <iframe
                   src="https://maps.google.com/maps?q=-12.942227,-38.480291&z=15&output=embed"
@@ -143,7 +143,7 @@ const ContactUs = () => {
                   title="Google Map"
                 ></iframe>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
