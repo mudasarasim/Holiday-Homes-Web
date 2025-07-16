@@ -1,15 +1,11 @@
-// pages/ContactUs.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import './Contact.css';
 
 const ContactUs = () => {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,13 +13,25 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       await axios.post('http://localhost:5001/api/contact', form);
-      alert('✅ Thank you for contacting us!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Message Sent!',
+        text: '✅ Thank you for contacting us. We will get back to you shortly.',
+      });
       setForm({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
       console.error(err);
-      alert('❌ Failed to send message. Please try again.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: '❌ Failed to send your message. Please try again later.',
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,14 +46,14 @@ const ContactUs = () => {
                 <div
                   className="col-md-12 col-sm-12 back"
                   style={{
-                    background:
-                      'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("img/bg.jpeg")',
+                    background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("img/bg.jpeg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     color: '#fff',
                     padding: '80px 0',
                     textAlign: 'center',
-                  }}>
+                  }}
+                >
                   <h2>Contact Us</h2>
                 </div>
               </div>
@@ -54,27 +62,27 @@ const ContactUs = () => {
         </div>
       </div>
 
-      {/* Contact and Map Section */}
+      {/* Contact & Map */}
       <section className="contact-section py-5">
         <div className="container">
           <div className="row text-center mb-5">
             <div className="col-md-4">
               <div className="contact-box p-4 shadow-sm">
-                <div className="icon mb-2"><i className="fa fa-envelope fa-2x"></i></div>
+                <i className="fa fa-envelope fa-2x mb-2"></i>
                 <h5>Mail</h5>
-                <p><i className="fa fa-envelope"></i>admin@everseasonholidayhomes.com</p>
+                <p>info@mivaan.com</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-box p-4 shadow-sm">
-                <div className="icon mb-2"><i className="fa fa-phone fa-2x"></i></div>
+                <i className="fa fa-phone fa-2x mb-2"></i>
                 <h5>Contact</h5>
-                <p><i className="fa fa-mobile"></i>+971 4 250 2914</p>
+                <p>+971 52 635 3298</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-box p-4 shadow-sm">
-                <div className="icon mb-2"><i className="fa fa-map-marker fa-2x"></i></div>
+                <i className="fa fa-map-marker fa-2x mb-2"></i>
                 <h5>Address</h5>
                 <p>Dubai - United Arab Emirates</p>
               </div>
@@ -82,8 +90,10 @@ const ContactUs = () => {
           </div>
 
           <div className="row align-items-stretch">
-            <div className="col mb-4">
-              <form onSubmit={handleSubmit} className="p-4 shadow-lg rounded-4 h-100">
+            <div className="col-lg-6 mb-4">
+              <form onSubmit={handleSubmit} className="p-4 shadow-lg rounded-4 h-100 bg-white">
+                <h4 className="mb-4">Send us a message</h4>
+
                 <div className="form-group mb-3">
                   <input
                     type="text"
@@ -116,7 +126,7 @@ const ContactUs = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="form-group mb-3">
+                <div className="form-group mb-4">
                   <textarea
                     className="form-control"
                     name="message"
@@ -127,11 +137,17 @@ const ContactUs = () => {
                     required
                   ></textarea>
                 </div>
-                <button type="submit" className="btn btn-warning text-light w-100">Submit</button>
+                <button
+                  type="submit"
+                  className="btn btn-warning text-light w-100"
+                  disabled={loading}
+                >
+                  {loading ? 'Sending...' : 'Submit'}
+                </button>
               </form>
             </div>
 
-            {/* <div className="col-lg-6 mb-4">
+            <div className="col-lg-6 mb-4">
               <div className="h-100 rounded-4 overflow-hidden shadow-lg">
                 <iframe
                   src="https://maps.google.com/maps?q=-12.942227,-38.480291&z=15&output=embed"
@@ -143,7 +159,7 @@ const ContactUs = () => {
                   title="Google Map"
                 ></iframe>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
