@@ -19,7 +19,7 @@ const PropertyModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://13.201.100.37:5001/api/property', form);
+      await axios.post('https://everseasonholidayhomes.com/api/property', form);
 
       Swal.fire({
         icon: 'success',
