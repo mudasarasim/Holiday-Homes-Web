@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve React build static files
-const buildPath = path.join(__dirname, "../frontend/build");
+const buildPath = path.join(__dirname, "../build");
 app.use(express.static(buildPath));
 
 // Serve uploads if needed
