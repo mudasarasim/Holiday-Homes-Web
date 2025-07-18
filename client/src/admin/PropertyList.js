@@ -6,7 +6,7 @@ const PropertyList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://13.201.100.37:5001/api/property')
+    axios.get('https://everseasonholidayhomes.com/api/property')
       .then(res => {
         setTimeout(() => {
           setProperties(res.data);
