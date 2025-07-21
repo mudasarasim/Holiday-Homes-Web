@@ -70,14 +70,14 @@ const ContactUs = () => {
               <div className="contact-box p-4 shadow-sm">
                 <i className="fa fa-envelope fa-2x mb-2"></i>
                 <h5>Mail</h5>
-                <p>info@mivaan.com</p>
+                <p>admin@everseasonholidayhomes.com</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-box p-4 shadow-sm">
                 <i className="fa fa-phone fa-2x mb-2"></i>
                 <h5>Contact</h5>
-                <p>+971 52 635 3298</p>
+                <p>04-2502914</p>
               </div>
             </div>
             <div className="col-md-4">
@@ -149,15 +149,7 @@ const ContactUs = () => {
 
             <div className="col-lg-6 mb-4">
               <div className="h-100 rounded-4 overflow-hidden shadow-lg">
-                <iframe
-                  src="https://maps.google.com/maps?q=-12.942227,-38.480291&z=15&output=embed"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  style={{ border: 0, minHeight: '100%' }}
-                  allowFullScreen
-                  title="Google Map"
-                ></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3608.0648010095797!2d55.30321977538413!3d25.26840547766514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDE2JzA2LjMiTiA1NcKwMTgnMjAuOSJF!5e0!3m2!1sen!2sae!4v1753095820552!5m2!1sen!2sae" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </div>
