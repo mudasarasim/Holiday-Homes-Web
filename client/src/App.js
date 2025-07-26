@@ -13,6 +13,8 @@ import ManageProperties from "./pages/ManageProperties";
 import Services from "./pages/OurServices";
 import ProprtyDetail from "./pages/PropertyDetail";
 import AdminApp from "./admin/AdminApp";
+import AddProperty from "./pages/AddProperty";
+
 
 function App() {
   return (
@@ -27,7 +29,11 @@ function App() {
         <Route path="/properties" element={<Properties />} />
         <Route path="/our-services" element={<Services />} />
         <Route path="/property-management" element={<ManageProperties />} />
-        <Route path="/property-detail" element={<ProprtyDetail />} />
+        <Route path="/property-detail/:id" element={<ProprtyDetail />} />
+        <Route path="/add-property" element={<AddProperty />} />
+       
+
+
 
         {/* Admin Routes */}
         <Route path="/admin/*" element={<AdminApp />} />

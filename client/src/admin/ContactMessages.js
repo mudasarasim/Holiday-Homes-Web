@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import BASE_URL from '../config';
 
 const ContactMessages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://everseasonholidayhomes.com/api/contact')
+    axios.get(`${BASE_URL}/api/contact`)
       .then(res => {
         setTimeout(() => {
           setMessages(res.data);

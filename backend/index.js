@@ -22,7 +22,7 @@ app.use(express.json());
 const buildPath = path.join(__dirname, "../client/build");
 app.use(express.static(buildPath));
 
-// Serve uploads if needed
+// Serve uploads as public
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Import and use routes

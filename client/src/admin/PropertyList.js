@@ -1,52 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import BASE_URL from '../config';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('https://everseasonholidayhomes.com/api/property')
+    axios.get(`${BASE_URL}/api/property`) // ❗ Use HTTP not HTTPS for local
       .then(res => {
         setTimeout(() => {
           setProperties(res.data);
           setLoading(false);
-        }, 1500); // 1.5 sec delay
+        }, 1000); // optional delay
       })
       .catch(err => {
-        console.error(err);
+        console.error('Error fetching properties:', err);
+        setError('Failed to load properties. Please try again.');
         setLoading(false);
       });
   }, []);
 
   return (
-    <div>
-      <h3>Listed Properties</h3>
+    <div className="container mt-4">
+      <h3 className="mb-3">📋 Listed Properties</h3>
 
       {loading ? (
         <div className="text-center mt-4">
-          <div className="spinner-border text-warning" role="status" />
+          <div className="spinner-border text-primary" role="status" />
           <p className="mt-2">Loading properties...</p>
         </div>
+      ) : error ? (
+        <div className="alert alert-danger text-center">{error}</div>
+      ) : properties.length === 0 ? (
+        <div className="alert alert-info text-center">No properties listed yet.</div>
       ) : (
-        <table className="table table-bordered mt-3">
-          <thead className="table-dark">
-            <tr>
-              <th>Name</th><th>Email</th><th>Phone</th><th>Type</th><th>Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            {properties.map((p, i) => (
-              <tr key={i}>
-                <td>{p.name}</td>
-                <td>{p.email}</td>
-                <td>{p.phone}</td>
-                <td>{p.property_type}</td>
-                <td>{p.location}</td>
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered">
+            <thead className="table-dark">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Type</th>
+                <th>Location</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {properties.map((p, i) => (
+                <tr key={i}>
+                  <td>{p.name}</td>
+                  <td>{p.email}</td>
+                  <td>{p.phone}</td>
+                  <td>{p.property_type}</td>
+                  <td>{p.location}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

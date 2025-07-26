@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import BASE_URL from '../config';
 
 const PropertyModal = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,8 @@ const PropertyModal = () => {
     location: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -18,14 +21,28 @@ const PropertyModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { name, phone, email, propertyType, location } = form;
+    if (!name || !phone || !email || !propertyType || !location) {
+      return Swal.fire('Missing Fields', 'Please fill all fields.', 'warning');
+    }
+
+    setLoading(true);
+
     try {
-      await axios.post('https://everseasonholidayhomes.com/api/property', form);
+      await axios.post(`${BASE_URL}/api/property`, {
+        name,
+        phone,
+        email,
+        property_type: propertyType,
+        location,
+      });
 
       Swal.fire({
         icon: 'success',
         title: 'Property Listed',
         text: 'Your property has been successfully submitted!',
-        confirmButtonColor: '#ffc107'
+        confirmButtonColor: '#ffc107',
       });
 
       setForm({
@@ -36,16 +53,17 @@ const PropertyModal = () => {
         location: '',
       });
 
-      // Close modal (Bootstrap)
       document.getElementById('propertyModalCloseBtn')?.click();
     } catch (err) {
       console.error('❌ Error submitting property:', err);
       Swal.fire({
         icon: 'error',
         title: 'Submission Failed',
-        text: 'Something went wrong. Please try again!',
-        confirmButtonColor: '#dc3545'
+        text: err?.response?.data?.error || 'Something went wrong. Please try again!',
+        confirmButtonColor: '#dc3545',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,7 +78,9 @@ const PropertyModal = () => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="propertyModalLabel">List Your Property</h5>
+            <h5 className="modal-title" id="propertyModalLabel">
+              List Your Property
+            </h5>
             <button
               type="button"
               className="btn-close"
@@ -71,42 +91,25 @@ const PropertyModal = () => {
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="Enter your name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Phone Number</label>
-                <input
-                  type="tel"
-                  className="form-control"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                  value={form.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="Enter your email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              {/* Name, Phone, Email */}
+              {['name', 'phone', 'email'].map((field, idx) => (
+                <div className="mb-3" key={idx}>
+                  <label className="form-label">
+                    {field.charAt(0).toUpperCase() + field.slice(1)}
+                  </label>
+                  <input
+                    type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                    className="form-control"
+                    name={field}
+                    placeholder={`Enter your ${field}`}
+                    value={form[field]}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              ))}
+
+              {/* Property Type */}
               <div className="mb-3">
                 <label className="form-label">Property Type</label>
                 <input
@@ -119,20 +122,26 @@ const PropertyModal = () => {
                   required
                 />
               </div>
+
+              {/* Location */}
               <div className="mb-3">
                 <label className="form-label">Location</label>
                 <input
                   type="text"
                   className="form-control"
                   name="location"
-                  placeholder="Enter location"
+                  placeholder="Enter the property location"
                   value={form.location}
                   onChange={handleChange}
                   required
                 />
               </div>
+
+              {/* Submit */}
               <div className="text-end">
-                <button type="submit" className="btn btn-warning">Submit</button>
+                <button type="submit" className="btn btn-warning" disabled={loading}>
+                  {loading ? 'Submitting...' : 'Submit'}
+                </button>
               </div>
             </form>
           </div>

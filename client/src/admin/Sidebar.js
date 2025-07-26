@@ -46,6 +46,27 @@ const Sidebar = () => {
             <i className="fas fa-building me-2"></i> Listed Properties
           </NavLink>
         </li>
+        <li className="nav-item mb-2">
+          <NavLink
+            to="/admin/dashboard/add-property"
+            className="nav-link text-white"
+            activeclassname="active"
+          >
+            <i className="fas fa-plus me-2"></i> Add Property
+          </NavLink>
+        </li>
+        <li className="nav-item mb-2">
+          <li className="nav-item mb-2">
+  <NavLink
+    to="/admin/dashboard/inquiries"
+    className="nav-link text-white"
+    activeclassname="active"
+  >
+    <i className="fas fa-question-circle me-2"></i> Inquiries
+  </NavLink>
+</li>
+
+        </li>
         <li className="nav-item mt-4">
           <button className="btn btn-outline-light w-100" onClick={handleLogout}>
             <i className="fas fa-sign-out-alt me-2"></i> Logout
