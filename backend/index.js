@@ -7,63 +7,36 @@ const http = require('http');
 
 const app = express();
 
-// Connect to Database if needed (add your DB config here)
-// const connectDB = require('./config/db');
-// connectDB().catch((err) => {
-//   console.error("Database connection failed", err);
-//   process.exit(1);
-// });
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve React build static files
-const buildPath = path.join(__dirname, "../client/build");
-app.use(express.static(buildPath));
-
-// Serve uploads as public
+// Serve uploads if needed
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Import and use routes
+// API Routes
 const contactRoutes = require('./routes/contact');
-const propertyRoutes = require('./routes/property');
+const propertyRoutes = require('./routes/Adminproperty'); 
+const inquiryRoutes = require('./routes/inquiry');
 
+// API Endpoints
 app.use('/api/contact', contactRoutes);
 app.use('/api/property', propertyRoutes);
+app.use('/api/inquiry', inquiryRoutes);
 
-// React SPA fallback
-app.get('/*', (req, res) => {
+// Serve React static files
+const buildPath = path.join(__dirname, '../client/build');
+app.use(express.static(buildPath));
+
+// React SPA fallback for all other non-API routes
+app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-
-// Setup server
+// Start server
 const PORT = process.env.PORT || 5001;
 const server = http.createServer(app);
 
-// (Optional) Setup Socket.IO if needed
-// const socketIo = require('socket.io');
-// const io = socketIo(server, {
-//   cors: {
-//     origin: "*",
-//     methods: ["GET", "POST"]
-//   }
-// });
-
-// io.on('connection', (socket) => {
-//   console.log('A user connected');
-
-//   socket.on('someEvent', (data) => {
-//     io.emit('anotherEvent', data);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.log('User disconnected');
-//   });
-// });
-
-// Start server
 server.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
