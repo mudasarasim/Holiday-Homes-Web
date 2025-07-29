@@ -1,16 +1,17 @@
 const mysql = require('mysql2');
+
 const db = mysql.createConnection({
-  host: 'gillbaba.com',
-  user: 'u167227426_holidayhome',
-  password: 'Holidayhome@122',
-  database: 'u167227426_holidayhome'
+  host: 'localhost',      // local MySQL server
+  user: 'root',           // default username (change if different)
+  password: '',           // your MySQL password (empty by default for XAMPP/MAMP)
+  database: 'holidays_database' // your local database name
 });
 
 db.connect((err) => {
   if (err) {
     console.error('❌ MySQL connection error:', err);
   } else {
-    console.log('✅ Connected to MySQL');
+    console.log('✅ Connected to MySQL (local)');
   }
 });
 

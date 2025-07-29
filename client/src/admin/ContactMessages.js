@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BASE_URL from '../config';
 
 const ContactMessages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/contact`)
+    axios.get('http://localhost:5001/api/contact')
       .then(res => {
         setTimeout(() => {
           setMessages(res.data);

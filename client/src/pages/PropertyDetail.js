@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './Contact.css';
 import banner from '../assets/banner-video.mp4';
-import BASE_URL from '../config';
 
 const PropertyDetail = () => {
   const { id } = useParams(); // Get property ID from URL
@@ -18,7 +17,7 @@ const PropertyDetail = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/property/${id}`);
+        const res = await fetch(`http://localhost:5001/api/property/${id}`);
         const data = await res.json();
         setProperty(data);
       } catch (err) {
@@ -36,7 +35,7 @@ const PropertyDetail = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${BASE_URL}/api/inquiry`, {
+      const response = await fetch('http://localhost:5001/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -110,7 +109,7 @@ const PropertyDetail = () => {
           {/* Property Image & Info */}
           <div className="col-lg-6">
             <img  
-             src={`${BASE_URL}/uploads/properties/${property.image}`}
+             src={`http://localhost:5001/uploads/properties/${property.image}`}
               alt={property.title}
               className="img-fluid rounded-4 shadow mb-3"
               style={{ objectFit: 'cover', height: '100%', width: '100%' }}

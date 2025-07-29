@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import BASE_URL from '../config';
 
 const PropertyModal = () => {
   const [form, setForm] = useState({
@@ -30,7 +29,7 @@ const PropertyModal = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${BASE_URL}/api/property`, {
+      await axios.post('http://localhost:5001/api/property', {
         name,
         phone,
         email,

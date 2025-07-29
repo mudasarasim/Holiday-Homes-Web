@@ -4,13 +4,12 @@ import videoBg from '../assets/banner-video.mp4';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import BASE_URL from '../config';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/property/all`) // replace with your actual API URL
+    axios.get('http://localhost:5001/api/property/all') // replace with your actual API URL
       .then(res => setProperties(res.data))
       .catch(err => console.error('Failed to load properties:', err));
   }, []);
@@ -53,7 +52,7 @@ const Properties = () => {
                 <div className="card border-0 shadow rounded-4 overflow-hidden property-card">
                   <div className="position-relative">
                     <img
-                      src={`${BASE_URL}/uploads/properties/${property.image}`}
+                      src={`http://localhost:5001/uploads/properties/${property.image}`}
                       alt={property.title}
                       className="w-100"
                       style={{ height: '270px', objectFit: 'cover' }}

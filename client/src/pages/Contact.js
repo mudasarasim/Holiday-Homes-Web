@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './Contact.css';
-import BASE_URL from '../config';
 
 const ContactUs = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -17,7 +16,7 @@ const ContactUs = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${BASE_URL}/api/contact`, form);
+      await axios.post('http://localhost:5001/api/contact', form);
       Swal.fire({
         icon: 'success',
         title: 'Message Sent!',

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import BASE_URL from '../config';
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +21,7 @@ const AddProperty = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/property/all`);
+      const res = await axios.get('http://localhost:5001/api/property/all');
       setProperties(res.data);
     } catch (err) {
       console.error(err);
@@ -54,14 +53,14 @@ const AddProperty = () => {
   if (formData.image) data.append('image', formData.image);
 
   if (editingId) {
-    const res = await axios.put(`${BASE_URL}/api/property/update/${editingId}`, data, {
+    const res = await axios.put(`http://localhost:5001/api/property/update/${editingId}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
     Swal.fire('Success', res.data.message, 'success');
   } else {
-    const res = await axios.post(`${BASE_URL}/api/property/add`, data);
+    const res = await axios.post('http://localhost:5001/api/property/add', data);
     Swal.fire('Success', res.data.message, 'success');
   }
 
@@ -98,7 +97,7 @@ const AddProperty = () => {
 
     if (confirm.isConfirmed) {
       try {
-        const res = await axios.delete(`${BASE_URL}/api/property/delete/${id}`);
+        const res = await axios.delete(`http://localhost:5001/api/property/delete/${id}`);
         Swal.fire('Deleted!', res.data.message, 'success');
         fetchProperties();
       } catch (err) {
@@ -134,7 +133,7 @@ const AddProperty = () => {
           <div className="mb-3">
             <label className="form-label">Current Image</label><br />
             <img
-              src={`${BASE_URL}/uploads/properties/${oldImage}`}
+              src={`http://localhost:5001/uploads/properties/${oldImage}`}
               alt="Current"
               width="100"
             />
@@ -166,7 +165,7 @@ const AddProperty = () => {
               <td>{prop.tag}</td>
               <td>
                 <img
-                  src={`${BASE_URL}/uploads/properties/${prop.image}`}
+                  src={`http://localhost:5001/uploads/properties/${prop.image}`}
                   alt={prop.title}
                   width="100"
                 />

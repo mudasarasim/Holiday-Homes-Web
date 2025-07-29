@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BASE_URL from '../config';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -8,7 +7,7 @@ const PropertyList = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/property`) // ❗ Use HTTP not HTTPS for local
+    axios.get('http://localhost:5001/api/property') // ❗ Use HTTP not HTTPS for local
       .then(res => {
         setTimeout(() => {
           setProperties(res.data);
