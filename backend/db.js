@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-  host: 'localhost',      // local MySQL server
-  user: 'root',           // default username (change if different)
-  password: '',           // your MySQL password (empty by default for XAMPP/MAMP)
-  database: 'holidays_database' // your local database name
+  host: 'gillbaba.com',      // local MySQL server
+  user: 'u167227426_holidayhome',           // default username (change if different)
+  password: 'Holiday@122',           // your MySQL password (empty by default for XAMPP/MAMP)
+  database: 'u167227426_holidayhome' // your local database name
 });
 
 db.connect((err) => {
