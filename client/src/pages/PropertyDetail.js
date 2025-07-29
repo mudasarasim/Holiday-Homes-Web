@@ -17,7 +17,7 @@ const PropertyDetail = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await fetch(`http://localhost:5001/api/property/${id}`);
+        const res = await fetch(`https://everseasonholidayhomes.com/api/property/${id}`);
         const data = await res.json();
         setProperty(data);
       } catch (err) {
@@ -35,7 +35,7 @@ const PropertyDetail = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5001/api/inquiry', {
+      const response = await fetch('https://everseasonholidayhomes.com/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -109,7 +109,7 @@ const PropertyDetail = () => {
           {/* Property Image & Info */}
           <div className="col-lg-6">
             <img  
-             src={`http://localhost:5001/uploads/properties/${property.image}`}
+             src={`https://everseasonholidayhomes.com/uploads/properties/${property.image}`}
               alt={property.title}
               className="img-fluid rounded-4 shadow mb-3"
               style={{ objectFit: 'cover', height: '100%', width: '100%' }}

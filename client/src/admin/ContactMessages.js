@@ -6,7 +6,7 @@ const ContactMessages = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/contact')
+    axios.get('https://everseasonholidayhomes.com/api/contact')
       .then(res => {
         setTimeout(() => {
           setMessages(res.data);

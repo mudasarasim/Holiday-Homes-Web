@@ -7,7 +7,7 @@ const PropertyList = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/property') // ❗ Use HTTP not HTTPS for local
+    axios.get('https://everseasonholidayhomes.com/api/property') // ❗ Use HTTP not HTTPS for local
       .then(res => {
         setTimeout(() => {
           setProperties(res.data);

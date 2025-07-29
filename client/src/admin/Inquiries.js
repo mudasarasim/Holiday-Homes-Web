@@ -8,7 +8,7 @@ const Inquiries = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/inquiry')
+    axios.get('https://everseasonholidayhomes.com/api/inquiry')
       .then(res => {
         setInquiries(res.data);
         setLoading(false);

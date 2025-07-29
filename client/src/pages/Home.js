@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get('http://localhost:5001/api/property/all'); // ✅ Make sure this route exists in backend
+        const res = await axios.get('https://everseasonholidayhomes.com/api/property/all'); // ✅ Make sure this route exists in backend
         setProperties(res.data);
       } catch (error) {
         console.error("Failed to fetch properties:", error);
@@ -50,7 +50,7 @@ const Home = () => {
                 <div className="card border-0 shadow rounded-4 overflow-hidden property-card">
                   <div className="position-relative">
                     <img
-                      src={`http://localhost:5001/uploads/properties/${property.image}`}
+                      src={`https://everseasonholidayhomes.com/uploads/properties/${property.image}`}
                       alt={property.title}
                       className="w-100"
                       style={{ height: '270px', objectFit: 'cover' }}

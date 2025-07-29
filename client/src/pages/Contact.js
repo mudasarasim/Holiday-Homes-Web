@@ -16,7 +16,7 @@ const ContactUs = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5001/api/contact', form);
+      await axios.post('https://everseasonholidayhomes.com/api/contact', form);
       Swal.fire({
         icon: 'success',
         title: 'Message Sent!',

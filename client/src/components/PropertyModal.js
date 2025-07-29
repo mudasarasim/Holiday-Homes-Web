@@ -29,7 +29,7 @@ const PropertyModal = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5001/api/property', {
+      await axios.post('https://everseasonholidayhomes.com/api/property', {
         name,
         phone,
         email,
