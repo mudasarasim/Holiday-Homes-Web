@@ -1,8 +1,12 @@
+// backend/routes/property.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Make sure this is correct path
+const db = require('../db'); // MySQL pool
 
-// POST /api/property
+/**
+ * POST /api/property
+ * Submit a new property
+ */
 router.post('/', (req, res) => {
   const { name, email, phone, property_type, location } = req.body;
 
@@ -22,32 +26,50 @@ router.post('/', (req, res) => {
       return res.status(500).json({ error: 'Database error. Please try again.' });
     }
 
-    res.status(201).json({ message: 'Property submitted successfully!' });
+    res.status(201).json({
+      success: true,
+      message: 'Property submitted successfully!',
+      propertyId: result.insertId
+    });
   });
 });
 
-// Get a specific property by ID
+/**
+ * GET /api/property/:id
+ * Fetch a specific property by ID
+ */
 router.get('/property/:id', (req, res) => {
   const { id } = req.params;
   db.query('SELECT * FROM properties WHERE id = ?', [id], (err, result) => {
-    if (err) return res.status(500).json({ message: 'Database error' });
-    if (result.length === 0) return res.status(404).json({ message: 'Property not found' });
-    res.json(result[0]);
-  });
-});
-
-// routes/property.js
-router.get('/', (req, res) => {
-  db.query('SELECT * FROM properties', (err, results) => {
     if (err) {
-      console.error('Error fetching properties:', err);
+      console.error('❌ Error fetching property:', err);
       return res.status(500).json({ error: 'Database error' });
     }
-    res.json(results);
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
+    res.status(200).json(result[0]);
   });
 });
 
-// DELETE a property by ID
+/**
+ * GET /api/property
+ * Fetch all properties
+ */
+router.get('/', (req, res) => {
+  db.query('SELECT * FROM properties ORDER BY id DESC', (err, results) => {
+    if (err) {
+      console.error('❌ Error fetching properties:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.status(200).json(results);
+  });
+});
+
+/**
+ * DELETE /api/property/:id
+ * Delete a property by ID
+ */
 router.delete('/property/:id', (req, res) => {
   const { id } = req.params;
 
@@ -61,9 +83,8 @@ router.delete('/property/:id', (req, res) => {
       return res.status(404).json({ message: 'Property not found or already deleted' });
     }
 
-    res.json({ message: 'Property deleted successfully!' });
+    res.json({ success: true, message: 'Property deleted successfully!' });
   });
 });
-
 
 module.exports = router;

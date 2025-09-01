@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../db'); // pool from db.js
 
-// POST: Save contact form
+/**
+ * POST /api/contacts
+ * Save a new contact form submission
+ */
 router.post('/', (req, res) => {
   const { name, email, phone, message } = req.body;
 
@@ -17,11 +20,19 @@ router.post('/', (req, res) => {
       console.error('❌ Error saving contact:', err);
       return res.status(500).json({ error: 'Failed to save contact. Please try again.' });
     }
-    res.status(201).json({ success: true, message: 'Contact submitted successfully!', contactId: result.insertId });
+
+    res.status(201).json({
+      success: true,
+      message: 'Contact submitted successfully!',
+      contactId: result.insertId
+    });
   });
 });
 
-// GET: Fetch all contacts
+/**
+ * GET /api/contacts
+ * Fetch all contact form submissions
+ */
 router.get('/', (req, res) => {
   const query = 'SELECT * FROM contacts ORDER BY created_at DESC';
 

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../db'); // pool from db.js
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Create uploads/properties folder if not exists
-const dir = 'uploads/properties';
+// Ensure uploads/properties folder exists
+const dir = path.join(__dirname, '..', 'uploads', 'properties');
 if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir, { recursive: true });
 }
@@ -31,7 +31,7 @@ router.post('/add', upload.single('image'), (req, res) => {
   }
 
   const query = 'INSERT INTO admin_properties (title, location, tag, image) VALUES (?, ?, ?, ?)';
-  db.query(query, [title, location, tag, image], (err, result) => {
+  db.query(query, [title, location, tag, image], (err) => {
     if (err) {
       console.error('❌ MySQL insert error:', err);
       return res.status(500).json({ error: 'Database error while adding property' });
@@ -72,11 +72,6 @@ router.get('/:id', (req, res) => {
   });
 });
 
-
-
-
-
-
 /**
  * DELETE /api/property/delete/:id
  * Delete a property
@@ -84,16 +79,16 @@ router.get('/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
   const { id } = req.params;
 
-  // First, get the image name to delete from disk
+  // First, get the image name
   db.query('SELECT image FROM admin_properties WHERE id = ?', [id], (err, result) => {
     if (err || result.length === 0) {
       return res.status(404).json({ message: 'Property not found' });
     }
 
     const imageName = result[0].image;
-    const imagePath = path.join(__dirname, '..', 'uploads', 'properties', imageName);
+    const imagePath = path.join(dir, imageName);
 
-    // Delete from database
+    // Delete from DB
     db.query('DELETE FROM admin_properties WHERE id = ?', [id], (err) => {
       if (err) {
         return res.status(500).json({ error: 'Error deleting property from database' });
@@ -102,7 +97,7 @@ router.delete('/delete/:id', (req, res) => {
       // Delete image file
       fs.unlink(imagePath, (err) => {
         if (err) {
-          console.warn('Image file not deleted (may not exist):', imagePath);
+          console.warn('⚠️ Image file not deleted (may not exist):', imagePath);
         }
       });
 
@@ -110,6 +105,7 @@ router.delete('/delete/:id', (req, res) => {
     });
   });
 });
+
 /**
  * PUT /api/property/update/:id
  * Update a property
@@ -119,7 +115,7 @@ router.put('/update/:id', upload.single('image'), (req, res) => {
   const { title, location, tag } = req.body;
   const newImage = req.file?.filename;
 
-  // Fetch current image to possibly delete it later
+  // Fetch current image
   db.query('SELECT image FROM admin_properties WHERE id = ?', [id], (err, results) => {
     if (err) {
       console.error("Error fetching property:", err);
@@ -132,10 +128,9 @@ router.put('/update/:id', upload.single('image'), (req, res) => {
 
     const oldImage = results[0].image;
 
-    // Build the update query dynamically
-    let query = '';
-    let values = [];
-
+    // Build update query
+    let query;
+    let values;
     if (newImage) {
       query = 'UPDATE admin_properties SET title = ?, location = ?, tag = ?, image = ? WHERE id = ?';
       values = [title, location, tag, newImage, id];
@@ -150,12 +145,12 @@ router.put('/update/:id', upload.single('image'), (req, res) => {
         return res.status(500).json({ error: "Failed to update property" });
       }
 
-      // Delete old image if new one uploaded
+      // Delete old image if replaced
       if (newImage && oldImage) {
-        const oldImagePath = path.join(__dirname, '..', 'uploads', 'properties', oldImage);
+        const oldImagePath = path.join(dir, oldImage);
         fs.unlink(oldImagePath, (err) => {
           if (err) {
-            console.warn('Old image not deleted (might not exist):', oldImagePath);
+            console.warn('⚠️ Old image not deleted (might not exist):', oldImagePath);
           }
         });
       }
@@ -164,4 +159,5 @@ router.put('/update/:id', upload.single('image'), (req, res) => {
     });
   });
 });
+
 module.exports = router;

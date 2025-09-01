@@ -1,18 +1,24 @@
 const mysql = require('mysql2');
 
-const db = mysql.createConnection({
-  host: 'gillbaba.com',      // local MySQL server
-  user: 'u167227426_holidayhome',           // default username (change if different)
-  password: '3nONfD8:D+',           // your MySQL password (empty by default for XAMPP/MAMP)
-  database: 'u167227426_holidayhome' // your local database name
+// Create a connection pool (recommended)
+const pool = mysql.createPool({
+  host: 'gillbaba.com',
+  user: 'u167227426_holidayhome',
+  password: '3nONfD8:D+',
+  database: 'u167227426_holidayhome',
+  waitForConnections: true,
+  connectionLimit: 10, // how many connections at the same time
+  queueLimit: 0        // unlimited queueing
 });
 
-db.connect((err) => {
+// Test connection
+pool.getConnection((err, connection) => {
   if (err) {
     console.error('❌ MySQL connection error:', err);
   } else {
-    console.log('✅ Connected to MySQL (local)');
+    console.log('✅ Connected to MySQL');
+    connection.release(); // release back to pool
   }
 });
 
-module.exports = db;
+module.exports = pool;
